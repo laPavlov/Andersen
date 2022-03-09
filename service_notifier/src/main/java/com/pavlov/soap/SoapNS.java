@@ -13,7 +13,7 @@ public class SoapNS {
 
     private static final Logger LOGGER = Logger.getGlobal();
 
-    private static final String URL = "http://localhost:8090/employeeservice";
+    private static final String URL = "http://localhost:8090/servicenotifier";
 
     public static void main(String[] args) {
 

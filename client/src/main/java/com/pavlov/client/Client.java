@@ -1,0 +1,18 @@
+package com.pavlov.client;
+
+import com.pavlov.soap.service.NotificationService;
+import com.pavlov.soap.service.NotificationServiceImpl;
+
+import java.util.logging.Logger;
+
+public class Client {
+    private static final Logger LOGGER = Logger.getGlobal();
+
+    public static void main(String[] args) {
+        NotificationService notificationService = new NotificationServiceImpl();
+        notificationService.trackingOn(4);
+        notificationService.trackingOn(2);
+        notificationService.trackingOn(3);
+
+    }
+}

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Script extends Thread{
     Date date = new Date();
-    Integer deadLine = 1;
+    Integer deadLine = 12;
     NotificationServiceImpl service = new NotificationServiceImpl();
     public void run(){
         for(;;){
