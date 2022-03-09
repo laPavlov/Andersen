@@ -61,7 +61,6 @@ public class NotificationServiceImpl implements NotificationService {
     public List<ServiceNotifierEntity> getEntityByMiss() {
         List<ServiceNotifierEntity> students;
         Transaction transaction = null;
-        ServiceNotifierEntity serviceNotifierEntity;
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
             Query query = session.createQuery("FROM ServiceNotifierEntity WHERE countOfMiss <= 2");

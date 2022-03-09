@@ -16,6 +16,16 @@ public class ServiceRouterImpl implements ServiceRouter {
 
     @Override
     public List<StudentsEntity> missDaysSN(List<ServiceNotifierEntity> entities) {
+        return getStudentsEntities(entities);
+
+    }
+
+    @Override
+    public List<StudentsEntity> missThreeDaySN(List<ServiceNotifierEntity> entities) {
+        return getStudentsEntities(entities);
+    }
+
+    List<StudentsEntity> getStudentsEntities(List<ServiceNotifierEntity> entities) {
         if(entities == null){
             return null;
         }
@@ -24,15 +34,6 @@ public class ServiceRouterImpl implements ServiceRouter {
             usersId.add(entity.getStudentId());
         }
         return teamService.getListUsersByListOfId(usersId);
-
-    }
-
-    @Override
-    public List<StudentsEntity> missThreeDaySN(List<ServiceNotifierEntity> entities) {
-        if(entities == null){
-            return null;
-        }
-        //ИЩУ ЛЮДЕЙ В СЕРВЕСЕ КОМАНДА
     }
 
     @Override

@@ -2,6 +2,7 @@ package service;
 
 import com.pavlov.soap.model.ServiceNotifierEntity;
 import com.pavlov.soap.service.NotificationServiceImpl;
+import com.terehov.soap.model.StudentsEntity;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -22,11 +23,13 @@ public class Script extends Thread {
             if (date.getHours() == deadLine) {
                 serviceNotifierEntity = notificationService.getEntityByMiss();
                 if (serviceNotifierEntity != null) {
-                    serviceRouter.missDaysSN(serviceNotifierEntity);
+                    List<StudentsEntity> studentsEntities = serviceRouter.missDaysSN(serviceNotifierEntity);
+                    МЕТОД БОТА ПОЛУЧАЮЩИЙ studentsEntity И ОТПРАВЛЯЮЩИЙ СООБЩЕНИЕ ТИМЛИДУ
                 }
                 serviceNotifierEntity = notificationService.getEntityByMissThreeDays();
                 if (serviceNotifierEntity != null) {
                     serviceRouter.missThreeDaySN(serviceNotifierEntity);
+                    МЕТОД БОТА ПОЛУЧАЮЩИЙ studentsEntity И ОТПРАВЛЯЮЩИЙ СООБЩЕНИЕ ЛЕКТОРУ
                 }
             }
 
