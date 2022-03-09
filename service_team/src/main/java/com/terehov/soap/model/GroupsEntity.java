@@ -1,8 +1,18 @@
 package com.terehov.soap.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "groups", schema = "service_team", catalog = "postgres")
 public class GroupsEntity {
@@ -13,65 +23,15 @@ public class GroupsEntity {
     @Basic
     @Column(name = "specializations")
     private String specializations;
-    @Basic
-    @Column(name = "lecturer_id")
-    private Integer lecturerId;
+
+    @ManyToOne
+    @JoinColumn(name = "lecturer_id")
+    private LecturersEntity lecturerIdEntity;
+
     @Basic
     @Column(name = "number")
     private Integer number;
 
-    public GroupsEntity() {
-    }
-
-    public GroupsEntity(int id, String specializations, Integer lecturerId, Integer number) {
-        this.id = id;
-        this.specializations = specializations;
-        this.lecturerId = lecturerId;
-        this.number = number;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getSpecializations() {
-        return specializations;
-    }
-
-    public void setSpecializations(String specializations) {
-        this.specializations = specializations;
-    }
-
-    public Integer getLecturerId() {
-        return lecturerId;
-    }
-
-    public void setLecturerId(Integer lecturerId) {
-        this.lecturerId = lecturerId;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupsEntity that = (GroupsEntity) o;
-        return id == that.id && Objects.equals(specializations, that.specializations) && Objects.equals(lecturerId, that.lecturerId) && Objects.equals(number, that.number);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, specializations, lecturerId, number);
-    }
+    @OneToMany(mappedBy = "groupIdEntity")
+    private List<StudentsEntity> groupIdEntity;
 }

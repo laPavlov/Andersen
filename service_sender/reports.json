@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "date": "2022-03-09",
+    "time": 45,
+    "task": "I read about Hibernate",
+    "userId": 25
+  },
+  {
+    "id": 2,
+    "date": "2022-03-09",
+    "time": 30,
+    "task": "I read about SOAP",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 15,
+    "task": "I read about REST",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 20,
+    "task": "I read about Maven",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 89,
+    "task": "I do Task3",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 120,
+    "task": "Created a project with Maven, connected Tomcat and Postgres there",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 30,
+    "task": "Figured out the Blocking queues",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 45,
+    "task": "I read about generics",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 60,
+    "task": "I figured out the designers at ArrayList and finalized my implementation",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 23,
+    "task": "Installed a virtual machine for Jenkins",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 10,
+    "task": "Turned off the graphical shell",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 80,
+    "task": "Implemented QuickSort",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 20,
+    "task": "I read about the State pattern",
+    "userId": 25
+  },
+  {
+    "id": 3,
+    "date": "2022-03-09",
+    "time": 75,
+    "task": "Cover the code with tests",
+    "userId": 25
+  }
+]

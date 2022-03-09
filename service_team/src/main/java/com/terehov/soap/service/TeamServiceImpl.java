@@ -18,10 +18,10 @@ import org.hibernate.SessionFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebService(endpointInterface = "com/terehov/soap/service/IDataProvider")
-public class  DataProvider implements IDataProvider {
+@WebService(endpointInterface = "com.terehov.soap.service.TeamService")
+public class TeamServiceImpl implements TeamService {
 
-    private static final Logger logger = LogManager.getLogger(IDataProvider.class);
+    private static final Logger logger = LogManager.getLogger(TeamService.class);
 
     @Override
     @WebMethod
@@ -50,6 +50,27 @@ public class  DataProvider implements IDataProvider {
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
             users = session.get(StudentsEntity.class, id);
+            transaction.commit();
+            logger.info(StudentsEntity.class.getSimpleName() + Constants.FOUND);
+
+            return users;
+
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public GroupsEntity getGroupById(Integer id) {
+        Transaction transaction = null;
+        GroupsEntity users;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            users = session.get(GroupsEntity.class, id);
             transaction.commit();
             logger.info(StudentsEntity.class.getSimpleName() + Constants.FOUND);
 

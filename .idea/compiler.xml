@@ -6,13 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="service-team" />
-        <module name="client" />
+        <module name="service_sender" />
+        <module name="service_team" />
         <module name="tgmv" />
         <module name="service_notifier" />
         <module name="soap-client" />
         <module name="soap-server" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="client" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
