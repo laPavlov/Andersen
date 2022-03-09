@@ -16,6 +16,10 @@ public interface NotificationService {
 
     //Read
     ServiceNotifierEntity getEntityById(Integer id);
+
+    List<ServiceNotifierEntity> getEntityByMiss();
+    List<ServiceNotifierEntity> getEntityByMissThreeDays();
+
     List<ServiceNotifierEntity> getAll();
 
     //Update

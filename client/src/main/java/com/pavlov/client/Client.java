@@ -9,10 +9,7 @@ public class Client {
     private static final Logger LOGGER = Logger.getGlobal();
 
     public static void main(String[] args) {
-        NotificationService notificationService = new NotificationServiceImpl();
-        notificationService.trackingOn(4);
-        notificationService.trackingOn(2);
-        notificationService.trackingOn(3);
+
 
     }
 }

@@ -12,6 +12,7 @@
     <modules>
         <module>service_notifier</module>
         <module>service_router</module>
+        <module>service_team</module>
         <module>client</module>
     </modules>
 

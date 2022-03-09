@@ -58,12 +58,52 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
     @Override
+    public List<ServiceNotifierEntity> getEntityByMiss() {
+        List<ServiceNotifierEntity> students;
+        Transaction transaction = null;
+        ServiceNotifierEntity serviceNotifierEntity;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("FROM ServiceNotifierEntity WHERE countOfMiss <= 2");
+            students = query.list();
+            transaction.commit();
+            logger.info(ServiceNotifierEntity.class.getSimpleName() + Constants.ADDED);
+            return students;
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+    }
+    @Override
+    public List<ServiceNotifierEntity> getEntityByMissThreeDays() {
+        List<ServiceNotifierEntity> students;
+        Transaction transaction = null;
+        ServiceNotifierEntity serviceNotifierEntity;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("FROM ServiceNotifierEntity WHERE countOfMiss = 3");
+            students = query.list();
+            transaction.commit();
+            logger.info(ServiceNotifierEntity.class.getSimpleName() + Constants.ADDED);
+            return students;
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+    }
+    @Override
     public List<ServiceNotifierEntity> getAll() {
         Transaction transaction;
         List<ServiceNotifierEntity> studentList = new ArrayList<>();
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
-            studentList = session.createQuery("from ServiceNotifierEntity", ServiceNotifierEntity.class).list();
+            studentList = session.createQuery("from ServiceNotifierEntity ", ServiceNotifierEntity.class).list();
             transaction.commit();
             return studentList;
         } catch (Exception e) {

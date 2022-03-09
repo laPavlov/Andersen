@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "service_notifier", schema = "public", catalog = "postgres")
+@Table(name = "service_notifier", schema = "service_notifier", catalog = "postgres")
 public class ServiceNotifierEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
