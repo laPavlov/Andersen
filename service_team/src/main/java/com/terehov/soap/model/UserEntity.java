@@ -14,8 +14,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "lecturers", schema = "service_team", catalog = "postgres")
-public class LecturersEntity {
+@Table(name = "user", schema = "service_team", catalog = "postgres")
+public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -25,12 +25,18 @@ public class LecturersEntity {
     private String firstName;
     @Basic
     @Column(name = "last_name")
-    private String lastName;
+    private int lastName;
     @Basic
     @Column(name = "id_telegram")
-    private int idTelegram;
+    private Long idTelegram;
 
-    @OneToMany(mappedBy = "lecturerIdEntity")
-    List<GroupsEntity> lecturerIdEntity;
+    @OneToMany(mappedBy = "idUserEntity")
+    private List<UsersInClassEntity> usersInClassEntitiesFK;
+
+    @OneToMany(mappedBy = "idUserEntity")
+    private List<UsersInGroupEntity> usersInGroupEntitiesFK;
+
+    @OneToMany(mappedBy = "idUserEntity")
+    private List<TaskEntity> taskEntitiesFK;
 
 }

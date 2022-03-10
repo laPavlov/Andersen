@@ -2,9 +2,7 @@ package service;
 
 import com.pavlov.soap.model.ServiceNotifierEntity;
 import com.pavlov.soap.service.NotificationServiceImpl;
-import com.terehov.soap.model.StudentsEntity;
 import com.terehov.soap.service.TeamServiceImpl;
-import modelToResponce.Students;
 
 
 import java.util.ArrayList;

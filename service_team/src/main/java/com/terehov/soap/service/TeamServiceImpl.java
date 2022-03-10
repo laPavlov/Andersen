@@ -25,11 +25,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     @WebMethod
-    public StudentsEntity insertUser(StudentsEntity entity) {
+    public UserEntity insertUser(UserEntity entity) {
         Transaction transaction = null;
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
-            entity = (StudentsEntity) session.merge(entity);
+            entity = (UserEntity) session.merge(entity);
             transaction.commit();
             logger.info(entity.getClass().getSimpleName() + Constants.ADDED);
             return entity;
@@ -44,14 +44,14 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     @WebMethod
-    public StudentsEntity getUserById(Integer id) {
+    public UserEntity getUserById(Integer id) {
         Transaction transaction = null;
-        StudentsEntity users;
+        UserEntity users;
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
-            users = session.get(StudentsEntity.class, id);
+            users = session.get(UserEntity.class, id);
             transaction.commit();
-            logger.info(StudentsEntity.class.getSimpleName() + Constants.FOUND);
+            logger.info(UserEntity.class.getSimpleName() + Constants.FOUND);
 
             return users;
 
@@ -65,16 +65,16 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public GroupsEntity getGroupById(Integer id) {
+    public GroupEntity getGroupById(Integer id) {
         Transaction transaction = null;
-        GroupsEntity users;
+        GroupEntity group;
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
-            users = session.get(GroupsEntity.class, id);
+            group = session.get(GroupEntity.class, id);
             transaction.commit();
-            logger.info(StudentsEntity.class.getSimpleName() + Constants.FOUND);
+            logger.info(GroupEntity.class.getSimpleName() + Constants.FOUND);
 
-            return users;
+            return group;
 
         } catch (Exception e) {
             logger.info(e.getClass() + e.getMessage());
@@ -86,20 +86,20 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<StudentsEntity> getListUsersByListOfId(List<Integer> listOfId) {
+    public List<UserEntity> getListUsersByListOfId(List<Integer> listOfId) {
         Transaction transaction = null;
-        StudentsEntity users;
-        List<StudentsEntity> list = new ArrayList<>();
+        UserEntity users;
+        List<UserEntity> list = new ArrayList<>();
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
 
             for(Integer id : listOfId) {
-                users = session.get(StudentsEntity.class, id);
+                users = session.get(UserEntity.class, id);
                 list.add(users);
             }
 
             transaction.commit();
-            logger.info(StudentsEntity.class.getSimpleName() + Constants.FOUND);
+            logger.info(UserEntity.class.getSimpleName() + Constants.FOUND);
 
             return list;
 
@@ -114,12 +114,12 @@ public class TeamServiceImpl implements TeamService {
 
     @WebMethod
     @Override
-    public List<StudentsEntity> selectAllUsers() {
+    public List<UserEntity> selectAllUsers() {
         Transaction transaction;
-        List<StudentsEntity> list = new ArrayList<>();
+        List<UserEntity> list = new ArrayList<>();
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
-            list = session.createQuery("from StudentsEntity ", StudentsEntity.class).list();
+            list = session.createQuery("from UserEntity ", UserEntity.class).list();
             transaction.commit();
             logger.info("Records were selected");
             return list;
@@ -131,7 +131,7 @@ public class TeamServiceImpl implements TeamService {
 
     @WebMethod
     @Override
-    public boolean updateUser(StudentsEntity entity) {
+    public boolean updateUser(UserEntity entity) {
         Transaction transaction = null;
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
@@ -154,9 +154,9 @@ public class TeamServiceImpl implements TeamService {
         Transaction transaction = null;
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
-            session.delete(new StudentsEntity());
+            session.delete(new UserEntity());
             transaction.commit();
-            logger.info(StudentsEntity.class.getSimpleName() + id + Constants.DELETED);
+            logger.info(UserEntity.class.getSimpleName() + id + Constants.DELETED);
             return true;
         } catch (Exception e) {
             logger.error(e.getClass() + e.getMessage());
@@ -164,6 +164,98 @@ public class TeamServiceImpl implements TeamService {
                 transaction.rollback();
             }
             return false;
+        }
+    }
+    /**
+     * методы для работы с группами
+     */
+    @Override
+    public GroupEntity insertGroup(GroupEntity entity) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            entity = (GroupEntity) session.merge(entity);
+            transaction.commit();
+            logger.info(entity.getClass().getSimpleName() + Constants.ADDED);
+            return entity;
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public boolean deleteGroup(int id) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            session.delete(new GroupEntity(id));
+            transaction.commit();
+            logger.info(GroupEntity.class.getSimpleName() + id + Constants.DELETED);
+            return true;
+        } catch (Exception e) {
+            logger.error(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateGroup(GroupEntity entity) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            session.update(entity);
+            transaction.commit();
+            logger.info(entity.getClass().getSimpleName() + Constants.UPDATED);
+            return true;
+        } catch (Exception e) {
+            logger.error(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+    }
+
+    /**
+     * метод для сервис-отправителя
+     * return: объект с id лектора, название команды, имя и фамилия студента
+     */
+    @Override
+    public List<Object> getInfoAboutLectorTeamStudent(int id) {
+        Transaction transaction;
+        List<Object> returnedObject = new ArrayList<>();
+        UserEntity users = null;
+        LecturersEntity lecturers = null;
+        TeamEntity teams = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            /**
+             * Если значение оказывается false, проверка
+             * утверждения getId, getTeamName, getName считается проваленной
+             * и выбрасывается AssertionError
+             */
+            assert false;
+            logger.info(StudentsEntity.class.getSimpleName() + "AssertionError");
+            returnedObject.add(lecturers.getId());
+            returnedObject.add(teams.getTeamName());
+            returnedObject.add(users.getFirstName());
+            returnedObject.add(users.getLastName());
+
+            transaction.commit();
+            logger.info(StudentsEntity.class.getSimpleName() + Constants.FOUND);
+
+            return returnedObject;
+
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            return null;
         }
     }
 

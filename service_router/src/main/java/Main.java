@@ -1,12 +1,10 @@
 
 import com.pavlov.soap.model.ServiceNotifierEntity;
 import com.pavlov.soap.service.NotificationServiceImpl;
-import com.terehov.soap.model.StudentsEntity;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import service.Script;
-import service.ServiceRouter;
 import service.ServiceRouterImpl;
 
 import java.util.List;

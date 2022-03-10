@@ -1,6 +1,5 @@
 package com.terehov.soap;
 
-import com.terehov.soap.model.GroupsEntity;
 import com.terehov.soap.service.TeamServiceImpl;
 
 import javax.xml.ws.Endpoint;

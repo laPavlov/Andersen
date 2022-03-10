@@ -1,8 +1,6 @@
 package service;
 
 import com.pavlov.soap.model.ServiceNotifierEntity;
-import com.terehov.soap.model.StudentsEntity;
-import modelToResponce.Students;
 
 
 import java.util.List;

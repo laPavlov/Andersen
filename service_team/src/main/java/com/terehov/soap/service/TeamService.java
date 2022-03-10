@@ -10,22 +10,39 @@ import java.util.List;
 public interface TeamService {
 
     @WebMethod
-    public StudentsEntity insertUser(StudentsEntity entity);
+    public UserEntity insertUser(UserEntity entity);
 
     @WebMethod
-    StudentsEntity getUserById(Integer id);
+    UserEntity getUserById(Integer id);
     @WebMethod
-    GroupsEntity getGroupById(Integer id);
+    GroupEntity getGroupById(Integer id);
 
     @WebMethod
-    List<StudentsEntity> getListUsersByListOfId(List<Integer> listOfId);
+    List<UserEntity> getListUsersByListOfId(List<Integer> listOfId);
 
     @WebMethod
-    List<StudentsEntity> selectAllUsers();
+    List<UserEntity> selectAllUsers();
 
     @WebMethod
-    boolean updateUser(StudentsEntity entity);
+    boolean updateUser(UserEntity entity);
 
     @WebMethod
     boolean deleteUser(int id);
+
+    /**
+     * работа с группами
+     */
+    @WebMethod
+    public GroupEntity insertGroup(GroupEntity entity);
+
+    @WebMethod
+    boolean deleteGroup(int id);
+
+    @WebMethod
+    boolean updateGroup(GroupEntity entity);
+
+    /**
+     * для сервис-отправителя
+     */
+    public Object getInfoAboutLectorTeamStudent(int id);
 }
