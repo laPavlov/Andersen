@@ -1,6 +1,7 @@
 
 import com.pavlov.soap.model.ServiceNotifierEntity;
 import com.pavlov.soap.service.NotificationServiceImpl;
+import com.terehov.soap.model.UserEntity;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -29,8 +30,8 @@ public class Main {
         List<ServiceNotifierEntity> serviceNotifierEntity;
         serviceNotifierEntity = notificationService.getEntityByMiss();
 
-        List<StudentsEntity> studentsEntities = serviceRouter.missDaysSN(serviceNotifierEntity);
-        System.out.println(studentsEntities.get(0).getFirstName() + " " + studentsEntities.get(0).getGroupIdEntity().getLecturerIdEntity().getFirstName());
+        List<UserEntity> studentsEntities = serviceRouter.missDaysSN(serviceNotifierEntity);
+        System.out.println(studentsEntities.get(0).getFirstName());
 
 }
 }

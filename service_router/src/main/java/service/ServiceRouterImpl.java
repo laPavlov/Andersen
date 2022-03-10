@@ -2,6 +2,7 @@ package service;
 
 import com.pavlov.soap.model.ServiceNotifierEntity;
 import com.pavlov.soap.service.NotificationServiceImpl;
+import com.terehov.soap.model.UserEntity;
 import com.terehov.soap.service.TeamServiceImpl;
 
 
@@ -13,17 +14,17 @@ public class ServiceRouterImpl implements ServiceRouter {
     TeamServiceImpl teamService = new TeamServiceImpl();
 
     @Override
-    public List<StudentsEntity> missDaysSN(List<ServiceNotifierEntity> entities) {
+    public List<UserEntity> missDaysSN(List<ServiceNotifierEntity> entities) {
         return getStudentsEntities(entities);
 
     }
 
     @Override
-    public List<StudentsEntity> missThreeDaySN(List<ServiceNotifierEntity> entities) {
+    public List<UserEntity> missThreeDaySN(List<ServiceNotifierEntity> entities) {
         return getStudentsEntities(entities);
     }
 
-    List<StudentsEntity> getStudentsEntities(List<ServiceNotifierEntity> entities) {
+    List<UserEntity> getStudentsEntities(List<ServiceNotifierEntity> entities) {
         if(entities == null){
             return null;
         }

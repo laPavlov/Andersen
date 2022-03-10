@@ -25,7 +25,7 @@ public class UserEntity {
     private String firstName;
     @Basic
     @Column(name = "last_name")
-    private int lastName;
+    private String lastName;
     @Basic
     @Column(name = "id_telegram")
     private Long idTelegram;

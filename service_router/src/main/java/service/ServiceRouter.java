@@ -1,14 +1,15 @@
 package service;
 
 import com.pavlov.soap.model.ServiceNotifierEntity;
+import com.terehov.soap.model.UserEntity;
 
 
 import java.util.List;
 
 public interface ServiceRouter {
 
-    List<StudentsEntity> missDaysSN(List<ServiceNotifierEntity> entities);
-    List<StudentsEntity> missThreeDaySN(List<ServiceNotifierEntity> entities);
+    List<UserEntity> missDaysSN(List<ServiceNotifierEntity> entities);
+    List<UserEntity> missThreeDaySN(List<ServiceNotifierEntity> entities);
 
     void trackingUser(Integer userId);
 

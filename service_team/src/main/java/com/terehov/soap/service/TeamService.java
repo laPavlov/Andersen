@@ -44,5 +44,5 @@ public interface TeamService {
     /**
      * для сервис-отправителя
      */
-    public Object getInfoAboutLectorTeamStudent(int id);
+//    public Object getInfoAboutLectorTeamStudent(int id);
 }
