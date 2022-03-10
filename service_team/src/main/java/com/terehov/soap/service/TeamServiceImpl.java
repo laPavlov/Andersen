@@ -192,6 +192,50 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    public UsersInGroupEntity getUserGroup(Integer id) {
+        Transaction transaction = null;
+        UsersInGroupEntity usersInGroupEntity;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("FROM UsersInGroupEntity where idUserEntity =: idUser");
+            usersInGroupEntity = (UsersInGroupEntity) query.setParameter("idUser", new UserEntity(id)).list().get(0);
+            transaction.commit();
+            logger.info(UserEntity.class.getSimpleName() + Constants.FOUND);
+
+            return usersInGroupEntity;
+
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public UsersInGroupEntity getAdminGroup(Integer idGroup) {
+        Transaction transaction = null;
+        UsersInGroupEntity usersInGroupEntity;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("FROM UsersInGroupEntity where idGroupEntity =: idGroup and role = 'ADMIN'");
+            usersInGroupEntity = (UsersInGroupEntity) query.setParameter("idGroup", new GroupEntity(idGroup)).list().get(0);
+            transaction.commit();
+            logger.info(UserEntity.class.getSimpleName() + Constants.FOUND);
+
+            return usersInGroupEntity;
+
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+    }
+
+    @Override
     public GroupEntity getGroupById(Integer id) {
         Transaction transaction = null;
         GroupEntity group;

@@ -26,12 +26,19 @@ public interface TeamService {
     @WebMethod
     List<UserEntity> getListUsersByListOfId(List<Integer> listOfId);
 
+    @WebMethod
+    UserEntity getUserById(Integer id);
+
+    @WebMethod
+    UsersInGroupEntity getUserGroup(Integer idUser);
+
+    @WebMethod
+    UsersInGroupEntity getAdminGroup(Integer idGroup);
+
 
 
     @WebMethod
     UserEntity insertUser(UserEntity entity);
-    @WebMethod
-    UserEntity getUserById(Integer id);
 
     @WebMethod
     GroupEntity getGroupById(Integer id);
