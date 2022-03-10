@@ -39,4 +39,14 @@ public class UserEntity {
     @OneToMany(mappedBy = "idUserEntity")
     private List<TaskEntity> taskEntitiesFK;
 
+    public UserEntity(int id) {
+        this.id = id;
+    }
+
+    public UserEntity(int id, String firstName, String lastName, Long idTelegram) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.idTelegram = idTelegram;
+    }
 }

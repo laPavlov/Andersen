@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Transaction;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,132 @@ import java.util.List;
 public class TeamServiceImpl implements TeamService {
 
     private static final Logger logger = LogManager.getLogger(TeamService.class);
+
+    @Override
+    public Boolean createGroup(String color) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            session.merge(new GroupEntity(color));
+            transaction.commit();
+            logger.info(color.getClass().getSimpleName() + Constants.ADDED);
+            return true;
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean deleteGroup(Integer idGroup) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query1 = session.createQuery("DELETE UsersInGroupEntity where idGroupEntity =: idGroup");
+            query1.setParameter("idGroup", new GroupEntity(idGroup));
+            query1.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("DELETE GroupEntity where id =: idGroup");
+            query.setParameter("idGroup", idGroup);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean choiceColorForGroup(Integer idGroup, String color) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("UPDATE GroupEntity set color =: color where id =: idGroup");
+            query.setParameter("color", color);
+            query.setParameter("idGroup", idGroup);
+            query.executeUpdate();
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean addUserToGroup(Integer idGroup, Integer idUser, String role) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            session.merge(new UsersInGroupEntity(idGroup, idUser, role));
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean choiceRoleUserToGroup(Integer idUser, String role) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("UPDATE UsersInGroupEntity set role =: role where idUserEntity =: idUser");
+            query.setParameter("idUser", new UserEntity(idUser));
+            query.setParameter("role", role);
+            query.executeUpdate();
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean removeUserFromGroup(Integer idUser) {
+        Transaction transaction = null;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("DELETE UsersInGroupEntity where idUserEntity =: idUser");
+            query.setParameter("idUser", new UserEntity(idUser));
+            query.executeUpdate();
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+    }
 
     @Override
     @WebMethod
@@ -93,7 +220,7 @@ public class TeamServiceImpl implements TeamService {
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
 
-            for(Integer id : listOfId) {
+            for (Integer id : listOfId) {
                 users = session.get(UserEntity.class, id);
                 list.add(users);
             }
@@ -166,6 +293,7 @@ public class TeamServiceImpl implements TeamService {
             return false;
         }
     }
+
     /**
      * методы для работы с группами
      */
@@ -187,23 +315,6 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
-    @Override
-    public boolean deleteGroup(int id) {
-        Transaction transaction = null;
-        try (Session session = getSession()) {
-            transaction = session.beginTransaction();
-            session.delete(new GroupEntity(id));
-            transaction.commit();
-            logger.info(GroupEntity.class.getSimpleName() + id + Constants.DELETED);
-            return true;
-        } catch (Exception e) {
-            logger.error(e.getClass() + e.getMessage());
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            return false;
-        }
-    }
 
     @Override
     public boolean updateGroup(GroupEntity entity) {

@@ -40,10 +40,10 @@ public class SenderServiceImpl implements SenderService {
             if (allTeamReports.containsKey(lecturer_id)) { // Проверяем, есть ли уже какой-то отчет для данного лектора и если есть
                 List<TeamReport> teamReports = allTeamReports.get(lecturer_id); // Если есть, то получаем лист отчетов команд
                 for (TeamReport teamReport : teamReports) {
-                    if (teamReport.getTeamName() == teamName) { // Проверяем есть ли отчеты от нужной команды
+                    if (teamReport.getTeamName().equals(teamName)) { // Проверяем есть ли отчеты от нужной команды
                         List<Report> reports = teamReport.getReports(); // Если есть, то получаем лист отчетов команды
                         for (Report report : reports) {
-                            if (report.getName() == name && report.getLastName() == lastName) { // Проверяем есть ли отчеты нужного нам студента
+                            if (report.getName().equals(name) && report.getLastName().equals(lastName)) { // Проверяем есть ли отчеты нужного нам студента
                                 Map<String, Integer> task_time = report.getTask_time(); // Если есть, добавляем ему новую задачу
                                 task_time.put(entity.getTask(), entity.getTime());
                                 report.setTask_time(task_time);

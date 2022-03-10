@@ -33,4 +33,9 @@ public class GroupEntity {
     public GroupEntity(int id) {
         this.id = id;
     }
+
+    public GroupEntity(String color) {
+        this.color = color;
+    }
+
 }

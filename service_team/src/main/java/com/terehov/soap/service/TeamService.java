@@ -9,16 +9,32 @@ import java.util.List;
 @WebService
 public interface TeamService {
 
+//Методы работы с группой
     @WebMethod
-    public UserEntity insertUser(UserEntity entity);
-
+    Boolean createGroup(String color);
     @WebMethod
-    UserEntity getUserById(Integer id);
+    Boolean deleteGroup(Integer idGroup);
     @WebMethod
-    GroupEntity getGroupById(Integer id);
+    Boolean choiceColorForGroup(Integer idGroup, String color);
+    @WebMethod
+    Boolean addUserToGroup(Integer idGroup, Integer idUser, String role);
+    @WebMethod
+    Boolean choiceRoleUserToGroup(Integer idUser, String role);
+    @WebMethod
+    Boolean removeUserFromGroup(Integer idUser);
 
     @WebMethod
     List<UserEntity> getListUsersByListOfId(List<Integer> listOfId);
+
+
+
+    @WebMethod
+    UserEntity insertUser(UserEntity entity);
+    @WebMethod
+    UserEntity getUserById(Integer id);
+
+    @WebMethod
+    GroupEntity getGroupById(Integer id);
 
     @WebMethod
     List<UserEntity> selectAllUsers();
@@ -29,14 +45,9 @@ public interface TeamService {
     @WebMethod
     boolean deleteUser(int id);
 
-    /**
-     * работа с группами
-     */
     @WebMethod
     public GroupEntity insertGroup(GroupEntity entity);
 
-    @WebMethod
-    boolean deleteGroup(int id);
 
     @WebMethod
     boolean updateGroup(GroupEntity entity);

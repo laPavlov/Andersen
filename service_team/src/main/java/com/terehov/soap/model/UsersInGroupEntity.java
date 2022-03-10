@@ -31,4 +31,14 @@ public class UsersInGroupEntity {
     @Basic
     @Column(name = "role")
     private String role;
+
+    public UsersInGroupEntity(Integer idGroupEntity, Integer idUserEntity, String role) {
+        this.idGroupEntity = new GroupEntity(idGroupEntity);
+        this.idUserEntity = new UserEntity(idUserEntity);
+        this.role = role;
+    }
+
+    public UsersInGroupEntity(Integer idUserEntity) {
+        this.idUserEntity = new UserEntity(idUserEntity);
+    }
 }

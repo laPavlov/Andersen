@@ -15,7 +15,6 @@ public class SoapTeam {
 
             LOGGER.info("Creating WEB server and publishing SOAP endpoint");
             Endpoint.publish(URL, new TeamServiceImpl());
-            TeamServiceImpl teamService = new TeamServiceImpl();
 
     }
 }
