@@ -33,7 +33,13 @@ public interface TeamService {
     UsersInGroupEntity getUserGroup(Integer idUser);
 
     @WebMethod
-    UsersInGroupEntity getAdminGroup(Integer idGroup);
+    UsersInGroupEntity getTeamLeaderGroup(Integer idGroup);
+
+    @WebMethod
+    UsersInClassEntity getUserClass(Integer idUser);
+
+    @WebMethod
+    UsersInClassEntity getLectorGroup(Integer idClass);
 
 
 

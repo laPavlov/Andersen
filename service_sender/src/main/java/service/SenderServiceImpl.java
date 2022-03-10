@@ -1,5 +1,8 @@
 package service;
 
+import com.terehov.soap.model.UsersInClassEntity;
+import com.terehov.soap.model.UsersInGroupEntity;
+import com.terehov.soap.service.TeamServiceImpl;
 import model.Report;
 import model.ServiceAccountantDTO;
 import model.TeamReport;
@@ -16,24 +19,23 @@ public class SenderServiceImpl implements SenderService {
     public Map<Integer, List<TeamReport>> getALlTeamsReports() {
 
         Random rand = new Random(); // для теста
+        TeamServiceImpl teamService = new TeamServiceImpl();
 
         Map<Integer, List<TeamReport>> allTeamReports = new HashMap<>();
 
-        // Делаем REST запрос Сервису-бухгалтеру и получаем ссылку на JSON
-        List<ServiceAccountantDTO> list = parserJSON.to_parse("reports.json", ServiceAccountantDTO[].class); // читаем данные из JSON файла
+        String str = getJsonFromREST.getJsonFromREST();// Делаем REST запрос Сервису-бухгалтеру и получаем строку со всеми отчетами
+
+        List<ServiceAccountantDTO> list = parserJSON.to_parse(str, ServiceAccountantDTO[].class); // читаем данные из JSON файла
 
         for (ServiceAccountantDTO entity: list) {
-            // По SOAP узнаем у Сервис-команды, используя "userId", информацию про того, кто сделал данный отчет
-            // (Нам нужно от Сервис-команды: ID лектора, Название команды, Имя сутдента, Фамилия студента)
-            int[] lecturers_id = {1, 2, 3, 4}; // для теста
-            String[] teamNames = {"RedTeam", "YellowTeam"}; // для теста
-            String[] names = {"Vladimir", "Ivan"}; // для теста
-            String[] lastNames = {"Petrov", "Ivanov"}; // для теста
+            UsersInGroupEntity usersInGroupEntity = teamService.getUserGroup(Math.toIntExact(entity.getUserId()));
+            UsersInClassEntity usersInClassEntity = teamService.getUserClass(Math.toIntExact(entity.getUserId()));
+            UsersInClassEntity lecturer = teamService.getLectorGroup(usersInClassEntity.getIdClassEntity().getId());
 
-            int lecturer_id = lecturers_id[rand.nextInt(4)]; // Получили ID лектора
-            String teamName = teamNames[rand.nextInt(2)]; // Получили имя команды
-            String name = names[rand.nextInt(2)]; // Получили имя
-            String lastName = lastNames[rand.nextInt(2)]; // Получили Фамилию
+            int lecturer_id = lecturer.getIdUserEntity().getId(); // Получили ID лектора
+            String teamName = usersInGroupEntity.getIdGroupEntity().getColor(); // Получили имя команды
+            String name = usersInGroupEntity.getIdUserEntity().getFirstName(); // Получили имя
+            String lastName = usersInGroupEntity.getIdUserEntity().getLastName(); // Получили Фамилию
 
             boolean changes = false;
 

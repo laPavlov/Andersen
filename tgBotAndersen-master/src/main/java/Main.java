@@ -10,7 +10,7 @@ public class Main {
 
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(new TgBot("Andersen_tracking_bot", "5257343730:AAG9iDRwN9zVyfrtdi01_1xI0uij02bukOM"));
+            botsApi.registerBot(new TgBot("StepanAndersonovich_bot", "5232982059:AAEbtLq2PGXql-XD3hZSn2u_bhSRrj7_ZQw"));
         } catch (TelegramApiException e) {
             e.printStackTrace();
     }

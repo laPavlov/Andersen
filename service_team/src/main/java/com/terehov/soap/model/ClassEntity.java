@@ -33,4 +33,7 @@ public class ClassEntity {
     @OneToMany(mappedBy = "idClassEntity")
     private List<TaskEntity> taskEntitiesFK;
 
+    public ClassEntity(int id) {
+        this.id = id;
+    }
 }

@@ -14,6 +14,7 @@ public class Script extends Thread {
 
     NotificationServiceImpl notificationService = new NotificationServiceImpl();
     ServiceRouter serviceRouter = new ServiceRouterImpl();
+    SenderService senderService = new SenderServiceImpl();
     List<ServiceNotifierEntity> serviceNotifierEntity;
 
     public void run() {
@@ -30,6 +31,9 @@ public class Script extends Thread {
 //                    МЕТОД БОТА ПОЛУЧАЮЩИЙ studentsEntity И ОТПРАВЛЯЮЩИЙ СООБЩЕНИЕ ЛЕКТОРУ
                 }
             }
+
+            //МЕТОД БОТА
+            senderService.getALlTeamsReports();
 
 
             notificationService.trackingOff();

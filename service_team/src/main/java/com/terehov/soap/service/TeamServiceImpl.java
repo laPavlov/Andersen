@@ -214,7 +214,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public UsersInGroupEntity getAdminGroup(Integer idGroup) {
+    public UsersInGroupEntity getTeamLeaderGroup(Integer idGroup) {
         Transaction transaction = null;
         UsersInGroupEntity usersInGroupEntity;
         try (Session session = getSession()) {
@@ -225,6 +225,50 @@ public class TeamServiceImpl implements TeamService {
             logger.info(UserEntity.class.getSimpleName() + Constants.FOUND);
 
             return usersInGroupEntity;
+
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public UsersInClassEntity getUserClass(Integer idUser) {
+        Transaction transaction = null;
+        UsersInClassEntity usersInClassEntity;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("FROM UsersInClassEntity where idUserEntity =: idUser");
+            usersInClassEntity = (UsersInClassEntity) query.setParameter("idUser", new UserEntity(idUser)).list().get(0);
+            transaction.commit();
+            logger.info(UserEntity.class.getSimpleName() + Constants.FOUND);
+
+            return usersInClassEntity;
+
+        } catch (Exception e) {
+            logger.info(e.getClass() + e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public UsersInClassEntity getLectorGroup(Integer idClass) {
+        Transaction transaction = null;
+        UsersInClassEntity usersInClassEntity;
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("FROM UsersInClassEntity where idClassEntity =: idClass and role = 'lector'");
+            usersInClassEntity = (UsersInClassEntity) query.setParameter("idClass", new ClassEntity(idClass)).list().get(0);
+            transaction.commit();
+            logger.info(UserEntity.class.getSimpleName() + Constants.FOUND);
+
+            return usersInClassEntity;
 
         } catch (Exception e) {
             logger.info(e.getClass() + e.getMessage());

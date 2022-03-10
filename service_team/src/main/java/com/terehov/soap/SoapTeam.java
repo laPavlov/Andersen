@@ -16,7 +16,7 @@ public class SoapTeam {
             LOGGER.info("Creating WEB server and publishing SOAP endpoint");
             Endpoint.publish(URL, new TeamServiceImpl());
             TeamServiceImpl teamService = new TeamServiceImpl();
-            teamService.getUserGroup(1);
+            System.out.println((teamService.getLectorGroup(teamService.getUserClass(1).getIdClassEntity().getId())).getIdUserEntity().getFirstName());
 
     }
 }
