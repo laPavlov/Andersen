@@ -60,7 +60,7 @@ public class NotificationServiceImpl implements NotificationService {
         Transaction transaction = null;
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM ServiceNotifierEntity WHERE countOfMiss <= 2");
+            Query query = session.createQuery("FROM ServiceNotifierEntity WHERE countOfMiss = 1 or countOfMiss = 2");
             students = query.list();
             transaction.commit();
             logger.info(ServiceNotifierEntity.class.getSimpleName() + Constants.ADDED);
@@ -80,7 +80,7 @@ public class NotificationServiceImpl implements NotificationService {
         ServiceNotifierEntity serviceNotifierEntity;
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM ServiceNotifierEntity WHERE countOfMiss = 3");
+            Query query = session.createQuery("FROM ServiceNotifierEntity WHERE countOfMiss >= 3");
             students = query.list();
             transaction.commit();
             logger.info(ServiceNotifierEntity.class.getSimpleName() + Constants.ADDED);

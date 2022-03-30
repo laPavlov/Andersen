@@ -1,10 +1,13 @@
 package com.example.service_notifier_spring.controller;
 
+import com.example.service_notifier_spring.model.ServiceNotifierEntity;
 import com.example.service_notifier_spring.service.NotificationService;
 import com.example.service_notifier_spring.service.NotificationServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class Controller {
@@ -29,5 +32,13 @@ public class Controller {
     public Boolean deleteUser(@PathVariable("user-id") Integer userId){
         notificationService.deleteUser(userId);
         return true;
+    }
+    @GetMapping("/getEntityByMiss")
+    public List<ServiceNotifierEntity> missOneDay(){
+        return notificationService.getEntityByMiss();
+    }
+    @GetMapping("/getEntityByMissThree")
+    public List<ServiceNotifierEntity> missThreeDay(){
+        return notificationService.getEntityByMissThreeDays();
     }
 }
